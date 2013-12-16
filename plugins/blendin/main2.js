@@ -23,6 +23,13 @@
 
  // Tutorial script by Tom Krcha (Twitter: @tomkrcha)
 
+//_generator.toggleMenu(MENU_ID, true, enabled);
+    //_generator.getPhotoshopPath()
+    //deleteDirectoryIfEmpty
+    //reportErrorsToUser
+    //document.closed ef búið er að loka psd skjali
+    //include-ancestor-masks
+
 (function () {
     "use strict";
 
