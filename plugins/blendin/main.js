@@ -11,7 +11,7 @@
      * @param {object} config    Config object
      */
     function Generator(generator, config) {
-        console.log('Starting up:', require("./package.json").name);
+        this.sendMessage('Starting up: ' + require("./package.json").name);
 
         this.generator = generator;
         this.generatorConfig = config;
@@ -78,6 +78,8 @@
         this.generator.onPhotoshopEvent('toolChanged', function (document) {
             console.log('Tool changed ' + document.id + ' was changed:');
         });
+
+        this.sendMessage('Event listeners set up');
     };
 
     /**
@@ -97,6 +99,11 @@
         ).done();
     };
 
+    /**
+     * Process all layers recursivly and calls Generator.create
+     * @param  {Error} error If any error happens
+     * @param  {object} data  The settings to generate from
+     */
     Generator.prototype.processDocument = function (error, data) {
         if (error) {
             return console.error('Error in processing doccument', error);
@@ -110,7 +117,6 @@
             timestamp = data.timeStamp;
 
         console.log(filename, timestamp)
-
 
         function createLayersIMG(layers) {
             layers.l.forEach(function (layer) {
@@ -211,6 +217,10 @@
 
     }
 
+    /**
+     * Makes some checks and returns an object based on them
+     * @param  {String} layerName Name of the layer to process
+     */
     Generator.prototype.checkIfProcess = function (layerName) {
         var self = this,
             output = {
@@ -340,7 +350,7 @@
             delete options.layer;
 
             self.savePixmap(pixmap, options.filename, options.fileInfo);
-        })
+        });
     }
 
     /**
